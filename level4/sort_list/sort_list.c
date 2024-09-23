@@ -12,24 +12,27 @@ first element of the sorted list.
 // 0 if a and b are in the right order, 0 otherwise.
 t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
 {
-    t_list *temp;
-    t_list *temp_head;
+    int temp_value;
 
-    //created a temp list to store node1
-    temp = lst;
-    temp_head = lst;
-    //if it is not sorted in right order
-    while (lst->next != NULL)
+    t_list *orginal_node1 = lst;
+
+    while (lst != NULL && lst->next != NULL)
     {
-        if (cmp(lst->data, lst->next->data) == 0)
+        if ((*cmp)(lst->data, lst->next->data) == 0)
         {
-            lst = lst->next; 
-            lst->next = temp;
+            temp_value = lst->data;
+            lst->data = lst->next->data;
+            lst->next->data = temp_value;
+        
+            //now that value has swopped
+            //reset current node to node1
+            lst = orginal_node1;
         }
-        lst = lst->next;
-        lst->next = lst->next->next;
+        //set current node to next node
+        else
+            lst = lst->next;
     }
-    return temp_head;
+    return (orginal_node1);
 }
 
 int ascending(int a, int b)
@@ -65,6 +68,7 @@ int main()
     printf("Node: %i | ", node3.data);
     printf("Node: %i | ", node4.data);
     printf("Node: %i | ", node5.data);
+    printf("\n\n");
     //Run the function
     sort_list(&node1, ascending);
 
