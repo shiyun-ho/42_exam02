@@ -5,12 +5,30 @@
  * @def: Sort the list using function pointer cmp
  * @param: lst
  * @param: cmp - Function pointer which sorts list
+ * @return: pointer to first element of sorted list
  * 
 */
 t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
 {
     int     swap_value;
-    t_list   
+
+    t_list  *orginal_node1 = lst;
+    
+    //while the node and next node is not null
+    while (lst != NULL && lst->next != NULL){
+        if ((*cmp)(lst->data, lst->next->data) == 0){
+            //bubble sort - switch in place
+            swap_value = lst->data;
+            lst->data = lst->next->data;
+            lst->next->data = swap_value;
+
+            lst = orginal_node1;
+        }
+        else
+            lst = lst->next;
+        
+    }
+    return (orginal_node1);
 }
 int ascending(int a, int b)
 {
