@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <stdlib.h>
 
 int	ft_atoi(const char *str){
 
@@ -22,11 +23,36 @@ int	ft_atoi(const char *str){
     return (value * sign);
 }
 
+void ft_putnbr(int value){
+    //if value is more than / equal to 10
+    //as ft_putnbr() gets evaluated after printing
+    if (value >= 10)
+        ft_putnbr(value);
+    
+    char digit = value % 10 + '0';
+    write(1, &digit, 1);
+}
+
+int is_prime(int num){
+    int i = 2;
+
+    if (num <= 1)
+        return 0; //false -> not primt
+    
+    while (i * i <= num){
+        if (num % i == 0)
+            return 0;
+        i++;
+    }
+    return (1);
+}
 /**
  * @def: Take a positive integer as arg and display sum of all prime numbers <= arg and newline
  * @param: positive integer
  * @return: sum of all prime numbers <= positive_int
 */
+#include <stdio.h>
+
 int main(int argc, char **argv){
     
     if (argc <= 1){
@@ -38,14 +64,14 @@ int main(int argc, char **argv){
     if (value < 0){
         exit(1);
     }
+    printf("value: %i\n", value);
 
     int sum = 0;
     //logical error here: How do I jump from prime number to next?
     int i = 1;
-    while(value % i == 0 && i <= value){
-        sum = sum + i;
-        i++;
-    }
-
+    
+    printf("sum: %i\n", sum);
+    //print sum with newline 
+    // ft_putnbr(sum);
     return (sum);
 }
