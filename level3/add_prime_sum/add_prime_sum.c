@@ -31,10 +31,21 @@ int main(int argc, char **argv){
     
     if (argc <= 1){
         write(1, "0\n", 2);
-        //TODO: Difference between exit(1) - fail here?
         exit(0);
     }
     
-    //convert arg from str to int
     int value = ft_atoi(argv[1]);
+    if (value < 0){
+        exit(1);
+    }
+
+    int sum = 0;
+    //logical error here: How do I jump from prime number to next?
+    int i = 1;
+    while(value % i == 0 && i <= value){
+        sum = sum + i;
+        i++;
+    }
+
+    return (sum);
 }
