@@ -51,8 +51,6 @@ int is_prime(int num){
  * @param: positive integer
  * @return: sum of all prime numbers <= positive_int
 */
-#include <stdio.h>
-
 int main(int argc, char **argv){
     
     if (argc <= 1){
@@ -67,11 +65,13 @@ int main(int argc, char **argv){
     printf("value: %i\n", value);
 
     int sum = 0;
-    //logical error here: How do I jump from prime number to next?
     int i = 1;
+
+    while (i <= value){
+        if (is_prime(i) == 1)
+            sum = sum + i;
+        i++;
+    }
     
-    printf("sum: %i\n", sum);
-    //print sum with newline 
-    // ft_putnbr(sum);
     return (sum);
 }
